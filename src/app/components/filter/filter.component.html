@@ -1,0 +1,171 @@
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+
+  <ion-item id="open-departure-modal" (click)="setInitialResults()">
+    <ion-label position="floating" class="label-title">
+      <ion-icon src="../../../assets/icon/departure.svg"></ion-icon>
+      Departure
+    </ion-label>
+    <h5>{{departure}}</h5>
+  </ion-item>
+
+  <ion-item id="open-destination-modal" (click)="setInitialResults()">
+    <ion-label position="floating" class="label-title">
+      <ion-icon src="../../../assets/icon/destination.svg"></ion-icon>
+      Destination
+    </ion-label>
+    <h5>{{destination}}</h5>
+  </ion-item>
+
+  <!-- <ion-item-divider></ion-item-divider> -->
+
+  <ion-item id="date-departure-modal">
+    <ion-label position="floating" class="label-title">
+      <ion-icon src="../../../assets/icon/departure-date.svg"></ion-icon>
+      Departure Date
+    </ion-label>
+    <h3>
+      {{ departureDateString }}
+    </h3>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-toggle (click)="round = !round" color="tertiary">Round</ion-toggle>
+  </ion-item>
+
+  <ion-item id="date-return-modal" [disabled]="!round">
+    <ion-label position="floating" class="label-title">
+      <ion-icon src="../../../assets/icon/return-date.svg"></ion-icon>
+      Return Date
+    </ion-label>
+    <h3>{{returnDateString}}</h3>
+  </ion-item>
+
+  <ion-item>
+    <div class="counter-container">
+      <ion-label style="font-size: 15px;">
+        <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
+        Adults
+      </ion-label>
+      <div class="number-input">
+        <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+        <ion-input max="30" type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+      </div>
+    </div>
+  </ion-item>
+
+  <ion-item>
+    <div class="counter-container">
+      <ion-label style="font-size: 15px;">
+        <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
+        Children
+      </ion-label>
+      <div class="number-input">
+        <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+        <ion-input max="30" type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+      </div>
+    </div>
+  </ion-item>
+</form>
+
+<ion-label color="danger" *ngIf="departureDateValue >= returnDateValue && round" style="font-size: 14px;">
+  * Destination Date should be greater than Departure Date
+</ion-label>
+
+<ion-label color="danger" *ngIf="adultsNumber == 0 && childrenNumber == 0" style="font-size: 14px;">
+  * Select at least a passenger
+</ion-label>
+
+<ion-button expand="block" shape="round" color="tertiary" [disabled]="filterForm.invalid" routerLink="search">
+  Search
+</ion-button>
+
+
+
+<ion-modal trigger="open-departure-modal" (willDismiss)="onDepartureDismiss($event)" #departureModal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelDeparture()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Departure</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmDeparture()" [strong]="true">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-searchbar (ionInput)="handleChange($event)"></ion-searchbar>
+        <ion-radio-group [(ngModel)]="selectedDepartureCity" [ngModelOptions]="{standalone: true}">
+          <ion-item *ngFor="let city of results">
+            <ion-radio [value]="city.id" [disabled]="city.id == selectedDestinationCity">{{ city.city }}</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal trigger="open-destination-modal" (willDismiss)="onDestinationDismiss($event)" #destinationModal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelDestination()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Destination</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmDestination()" [strong]="true">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-searchbar (ionInput)="handleChange($event)"></ion-searchbar>
+        <ion-radio-group [(ngModel)]="selectedDestinationCity" [ngModelOptions]="{standalone: true}">
+          <ion-item *ngFor="let city of results">
+            <ion-radio [value]="city.id" [disabled]="city.id == selectedDepartureCity">{{ city.city }}</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal trigger="date-departure-modal" #dateDepartureModal class="date-modal">
+  <ng-template>
+
+    <ion-content>
+      <ion-datetime [min]="minDate" [max]="maxDate" #departureDate presentation="date" [value]="departureDateValue"
+        showDefaultButtons="true" size="cover" (ionChange)="departureDateChanged(departureDate.value)" color="tertiary">
+        <span slot="title">Select a Departure Date</span>
+      </ion-datetime>
+    </ion-content>
+
+  </ng-template>
+</ion-modal>
+
+<ion-modal trigger="date-return-modal" #dateReturnModal class="date-modal">
+  <ng-template>
+
+    <ion-content>
+      <ion-datetime [min]="minDate" [max]="maxDate" #returnDate presentation="date" [value]="returnDateValue"
+        showDefaultButtons="true" size="cover" (ionChange)="returnDateChanged(returnDate.value)" color="tertiary">
+        <span slot="title">Select a Return Date</span>
+      </ion-datetime>
+    </ion-content>
+
+  </ng-template>
+</ion-modal>

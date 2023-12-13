@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="center-title">
+    <h2>Find your dream destination</h2>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="golf-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>    
+  </div>
+
+  <ion-button class="center-button" shape="round" color="tertiary" (click)="openFlightFilterPopover($event)">
+    Filter for a flight
+  </ion-button>
+
+  <ion-segment value="all" scrollable (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="america">
+      <ion-label>America</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="europe">
+      <ion-label>Europe</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="africa">
+      <ion-label>Africa</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="asia">
+      <ion-label>Asia</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let city of (cities | async) | navFilter:continent:'continent'">
+        <ion-card>
+          <ion-img class="size-img" src="{{city.img}}"></ion-img>
+          <ion-card-header>
+            <ion-card-title class="medium-text">{{city.city}}</ion-card-title>
+            <ion-card-subtitle class="small-text">{{city.country}}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
