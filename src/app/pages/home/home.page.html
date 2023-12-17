@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Home</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button id="notifications-modal">
         <ion-icon name="notifications-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -47,7 +47,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let city of (cities | async) | navFilter:continent:'continent'">
-        <ion-card>
+        <ion-card class="card">
           <ion-img class="size-img" src="{{city.img}}"></ion-img>
           <ion-card-header>
             <ion-card-title class="medium-text">{{city.city}}</ion-card-title>
@@ -57,6 +57,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
+
+<ion-modal trigger="notifications-modal" #notificationsModal class="notifications-modal">
+  <ng-template>
+    <app-notification></app-notification>
+  </ng-template>
+</ion-modal>
 

@@ -34,5 +34,4 @@ export class HomePage implements OnInit {
   openFlightFilterPopover(event: Event) {
     this.filterService.presentFlightFilterPopover(event);
   }
-
 }

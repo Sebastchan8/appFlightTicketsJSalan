@@ -14,6 +14,14 @@ export class FlightsService {
     return this.http.get('/assets/data/cities.json');
   }
 
+  getAvailableFlights(){
+    return this.http.get('/assets/data/flights.json');
+  }
+
+  getNotifications(){
+    return this.http.get('/assets/data/notifications.json');
+  }
+
   // obtenerCurso(id: string){
   //   return this.http.get(this.API + "/" + id);
   // }

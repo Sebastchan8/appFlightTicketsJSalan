@@ -7,14 +7,24 @@ import { FilterComponent } from '../components/filter/filter.component';
 })
 export class FilterService {
 
-  constructor(private popoverController: PopoverController) {}
+  private popover: HTMLIonPopoverElement | null = null;
+
+  constructor(private popoverController: PopoverController) { }
 
   async presentFlightFilterPopover(event: Event) {
-    const popover = await this.popoverController.create({
+    this.popover = await this.popoverController.create({
       component: FilterComponent,
       event: event,
       translucent: true,
     });
-    return await popover.present();
+
+    await this.popover.present();
+  }
+
+  closeFlightFilterPopover() {
+    if (this.popover) {
+      this.popover.dismiss();
+      this.popover = null;
+    }
   }
 }
