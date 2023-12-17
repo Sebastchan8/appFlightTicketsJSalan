@@ -10,7 +10,8 @@
         "adult_price":400,
         "child_price":200,
         "adult_available":100,
-        "child_available":50
+        "child_available":50,
+        "round":true
     },
     {
         "flight_id":2,
@@ -23,7 +24,8 @@
         "adult_price":350,
         "child_price":100,
         "adult_available":300,
-        "child_available":100
+        "child_available":100,
+        "round":true
     },
     {
         "flight_id":3,
@@ -36,7 +38,8 @@
         "adult_price":500,
         "child_price":250,
         "adult_available":180,
-        "child_available":90
+        "child_available":90,
+        "round":false
     },
     {
         "flight_id":4,
@@ -49,7 +52,8 @@
         "adult_price":389,
         "child_price":230,
         "adult_available":167,
-        "child_available":26
+        "child_available":26,
+        "round":true
     },
     {
         "flight_id":2,
@@ -62,6 +66,7 @@
         "adult_price":350,
         "child_price":100,
         "adult_available":300,
-        "child_available":100
+        "child_available":100,
+        "round":false
     }
 ]

@@ -23,4 +23,8 @@ export class SearchPage implements OnInit {
   openFlightFilterPopover(event: Event) {
     this.filterService.presentFlightFilterPopover(event);
   }
+
+  goToReservation(ticket:any){
+    console.log(ticket)
+  }
 }
