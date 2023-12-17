@@ -8,15 +8,16 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { NavFilterPipe } from 'src/app/pipes/nav-filter.pipe';
-import { NotificationComponent } from 'src/app/components/notification/notification.component';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,    
+    HomePageRoutingModule,
+    NotificationModule
   ],
-  declarations: [HomePage, NavFilterPipe, NotificationComponent]
+  declarations: [HomePage, NavFilterPipe,],
 })
 export class HomePageModule {}

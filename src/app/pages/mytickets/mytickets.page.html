@@ -1,6 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>mytickets</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Tickets</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="notifications-modal-m">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,3 +19,9 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+
+<ion-modal trigger="notifications-modal-m" #notificationsModal class="notifications-modal">
+  <ng-template>
+    <app-notification></app-notification>
+  </ng-template>
+</ion-modal>

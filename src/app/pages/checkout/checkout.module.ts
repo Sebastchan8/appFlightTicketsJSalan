@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CheckoutPageRoutingModule } from './checkout-routing.module';
 
 import { CheckoutPage } from './checkout.page';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CheckoutPageRoutingModule
+    CheckoutPageRoutingModule,
+    NotificationModule
   ],
-  declarations: [CheckoutPage]
+  declarations: [CheckoutPage,]
 })
 export class CheckoutPageModule {}

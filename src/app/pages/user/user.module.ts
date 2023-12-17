@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UserPageRoutingModule } from './user-routing.module';
 
 import { UserPage } from './user.page';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { UserPage } from './user.page';
     IonicModule,
     UserPageRoutingModule,
     ReactiveFormsModule,
+    NotificationModule,
   ],
   declarations: [UserPage]
 })

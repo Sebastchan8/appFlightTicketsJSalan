@@ -5,7 +5,6 @@ import { InputComponent } from './input/input.component';
 import { ButtonComponent } from './button/button.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
