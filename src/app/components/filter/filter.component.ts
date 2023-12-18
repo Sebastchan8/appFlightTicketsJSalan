@@ -17,7 +17,6 @@ export class FilterComponent implements OnInit {
   @ViewChild('departureModal') departureModal!: IonModal;
   @ViewChild('destinationModal') destinationModal!: IonModal;
 
-  filterForm!: FormGroup
   cities!: any[]
   results!: any[]
   selectedDepartureCity!: number;
@@ -38,18 +37,10 @@ export class FilterComponent implements OnInit {
       this.cities = data as []
       this.results = this.cities
     })
-    this.filterForm = this.formBuilder.group({
-      // email: ['', [Validators.required, Validators.email]],
-      // password: ['', Validators.required]
-    });
   }
 
   setInitialResults() {
     this.results = this.cities
-  }
-
-  onSubmit() {
-    this.router.navigate(['/search'])
   }
 
   cancelDeparture() {
@@ -137,6 +128,11 @@ export class FilterComponent implements OnInit {
   closePopoverAndNavigate() {
     this.filterPopover.closeFlightFilterPopover()
     this.router.navigate(['search'])
+  }
+
+  getSearchBtnAvailability(){
+    return (this.adultsNumber == 0 && this.childrenNumber == 0)
+    || this.departure === "Departure" || this.destination === "Destination"
   }
 
 }

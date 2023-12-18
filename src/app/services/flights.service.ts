@@ -14,7 +14,15 @@ export class FlightsService {
     return this.http.get('/assets/data/cities.json');
   }
 
+  getFlight(id:string){
+    return this.http.get('/assets/data/flight.json');
+  }
+
   getAvailableFlights(){
+    return this.http.get('/assets/data/flights.json');
+  }
+
+  getRoundFlights(id:string){
     return this.http.get('/assets/data/flights.json');
   }
 

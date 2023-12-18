@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FlightsService } from 'src/app/services/flights.service';
 
 @Component({
@@ -8,31 +9,31 @@ import { FlightsService } from 'src/app/services/flights.service';
 })
 export class ReservationPage implements OnInit {
 
-  departureFlight:any = {
-    "flight_id":1,
-    "aeroline_name":"Avianca",
-    "aeroline_img":"https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107",
-    "departure_city":"Ambato",
-    "departure_date":"23/12/2023 09:00",
-    "destination_city":"Barcelona",
-    "destination_date":"24/12/2023 13:00",
-    "adult_price":400,
-    "child_price":200,
-    "adult_available":100,
-    "child_available":50,
-    "round":true
-  }
+  departureFlight:any = {round:false}
 
   returnFlights!:any
-  selectedFlight: any;
+  selectedFlight:any = false
+  round:any = false
 
-  constructor(private flightsService:FlightsService) { }
+  constructor(private flightsService:FlightsService,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.flightsService.getAvailableFlights().subscribe(data => {
-      this.returnFlights = data
-      this.selectedFlight = this.returnFlights[0];
+    let flight_id = this.route.snapshot.paramMap.get('flight_id') as string
+    let round = this.route.snapshot.paramMap.get('round') as string
+
+    this.flightsService.getFlight(flight_id).subscribe(data => {
+      this.departureFlight = data
+      if(round === "true"){
+        this.flightsService.getRoundFlights(flight_id).subscribe(data => {
+          this.returnFlights = data
+          this.selectedFlight = this.returnFlights[0];
+          this.round = true
+        })
+      }
     })
+    
   }
 
   adultsNumber: number = 1

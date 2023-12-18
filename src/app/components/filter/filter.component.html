@@ -1,4 +1,4 @@
-<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+<form>
 
   <ion-item id="open-departure-modal" (click)="setInitialResults()">
     <ion-label position="floating" class="label-title">
@@ -78,7 +78,9 @@
   * Select at least a passenger
 </ion-label>
 
-<ion-button expand="none" shape="round" color="tertiary" [disabled]="filterForm.invalid" (click)="closePopoverAndNavigate()">
+<ion-button expand="block" shape="round" color="tertiary" 
+[disabled]="getSearchBtnAvailability()" 
+(click)="closePopoverAndNavigate()">
   Search
 </ion-button>
 

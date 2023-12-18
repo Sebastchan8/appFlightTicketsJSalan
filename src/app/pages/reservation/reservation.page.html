@@ -38,7 +38,7 @@
     </ion-grid>
   </ion-card>
 
-  <div *ngIf="departureFlight.round">
+  <div *ngIf="round">
     <h3 style="font-weight: bold;" class="ion-text-left">Return Ticket</h3>
     <ion-select [(ngModel)]="selectedFlight">
       <ion-select-option *ngFor="let flight of returnFlights" [value]="flight">
