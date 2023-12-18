@@ -59,6 +59,28 @@ export class ReservationPage implements OnInit {
     }
   }
 
+  getMaxAdultSeats(){
+    if(this.round){
+      if(this.departureFlight.adult_available <= this.selectedFlight.adult_available){
+        return this.departureFlight.adult_available
+      }else{
+        return this.selectedFlight.adult_available
+      }
+    }
+    return this.departureFlight.adult_available
+  }
+
+  getMaxChildSeats(){
+    if(this.round){
+      if(this.departureFlight.child_available <= this.selectedFlight.child_available){
+        return this.departureFlight.child_available
+      }else{
+        return this.selectedFlight.child_available
+      }
+    }
+    return this.departureFlight.child_available
+  }
+
   goToCheckout(){
 
   }
