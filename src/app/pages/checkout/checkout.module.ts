@@ -8,6 +8,7 @@ import { CheckoutPageRoutingModule } from './checkout-routing.module';
 
 import { CheckoutPage } from './checkout.page';
 import { NotificationModule } from 'src/app/components/notification/notification.module';
+import { SuccessModalModule } from 'src/app/components/success-modal/success-modal.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { NotificationModule } from 'src/app/components/notification/notification
     FormsModule,
     IonicModule,
     CheckoutPageRoutingModule,
-    NotificationModule
+    NotificationModule,
+    SuccessModalModule
   ],
   declarations: [CheckoutPage,]
 })

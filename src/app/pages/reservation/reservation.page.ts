@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { FlightsService } from 'src/app/services/flights.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class ReservationPage implements OnInit {
   round:any = false
 
   constructor(private flightsService:FlightsService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private navCtrl: NavController) {
   }
 
   ngOnInit() {
@@ -82,7 +84,13 @@ export class ReservationPage implements OnInit {
   }
 
   goToCheckout(){
-
+    this.navCtrl.navigateForward(['/checkout', { 
+        departure_id:this.departureFlight.flight_id,
+        return_id:this.selectedFlight.flight_id,
+        adults:this.adultsNumber,
+        children:this.childrenNumber,
+        round:this.round
+    }]);
   }
 
 }

@@ -30,6 +30,12 @@ export class FlightsService {
     return this.http.get('/assets/data/notifications.json');
   }
 
+  getUserData(){
+    return this.http.get('/assets/data/user.json');
+  }
+
+
+
   // obtenerCurso(id: string){
   //   return this.http.get(this.API + "/" + id);
   // }

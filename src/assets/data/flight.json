@@ -1,0 +1,14 @@
+{
+    "flight_id":1,
+    "aeroline_name":"Avianca",
+    "aeroline_img":"https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107",
+    "departure_city":"Ambato",
+    "departure_date":"23/12/2023 09:00",
+    "destination_city":"Barcelona",
+    "destination_date":"24/12/2023 13:00",
+    "adult_price":400,
+    "child_price":200,
+    "adult_available":100,
+    "child_available":50,
+    "round":true
+}

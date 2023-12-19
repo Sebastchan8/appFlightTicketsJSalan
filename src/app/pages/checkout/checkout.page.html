@@ -16,7 +16,7 @@
       <ion-icon name="person-outline"></ion-icon>
       Full name
     </ion-label>
-    <ion-input value="Joan Salán" readonly></ion-input>
+    <ion-input [value]="fullname" readonly></ion-input>
   </ion-item>
 
   <ion-item style="margin-top: 2%;">
@@ -24,21 +24,23 @@
       <ion-icon name="card-outline"></ion-icon>
       Credit Card
     </ion-label>
-    <ion-input value="XXXX - XXXX - XXXX - XX90" readonly></ion-input>
+    <ion-input [value]="creditCard" readonly></ion-input>
   </ion-item>
-  
+
 
   <h3 style="font-weight: bold;" class="ion-text-left">Departure Ticket</h3>
   <ion-card class="card">
     <ion-grid>
       <ion-row>
         <ion-col size="3" class="ion-text-center">
-          <ion-img class="size-img" src="{{departureFlight.aeroline_img}}"></ion-img>          
+          <ion-img class="size-img" src="{{departureFlight.aeroline_img}}"></ion-img>
         </ion-col>
         <ion-col size="9">
-          <ion-card-title class="medium-text ion-text-center">{{departureFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{departureFlight.destination_city}}</ion-card-title>
-          <h5 class="small-text ion-text-center">{{departureFlight.departure_date}} <ion-icon name="remove-outline"></ion-icon> {{departureFlight.destination_date}}</h5>
-        
+          <ion-card-title class="medium-text ion-text-center">{{departureFlight.departure_city}} <ion-icon
+              name="arrow-forward-outline"></ion-icon> {{departureFlight.destination_city}}</ion-card-title>
+          <h5 class="small-text ion-text-center">{{departureFlight.departure_date}} <ion-icon
+              name="remove-outline"></ion-icon> {{departureFlight.destination_date}}</h5>
+
           <ion-row>
             <ion-col size="1">
             </ion-col>
@@ -60,17 +62,19 @@
 
   <div *ngIf="round">
     <h3 style="font-weight: bold;" class="ion-text-left">Return Ticket</h3>
-  
+
     <ion-card class="card">
       <ion-grid>
         <ion-row>
           <ion-col size="3" class="ion-text-center">
-            <ion-img class="size-img" src="{{returnFlight.aeroline_img}}"></ion-img>          
+            <ion-img class="size-img" src="{{returnFlight.aeroline_img}}"></ion-img>
           </ion-col>
           <ion-col size="9">
-            <ion-card-title class="medium-text ion-text-center">{{returnFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{returnFlight.destination_city}}</ion-card-title>
-            <h5 class="small-text ion-text-center">{{returnFlight.departure_date}} <ion-icon name="remove-outline"></ion-icon> {{returnFlight.destination_date}}</h5>
-          
+            <ion-card-title class="medium-text ion-text-center">{{returnFlight.departure_city}} <ion-icon
+                name="arrow-forward-outline"></ion-icon> {{returnFlight.destination_city}}</ion-card-title>
+            <h5 class="small-text ion-text-center">{{returnFlight.departure_date}} <ion-icon
+                name="remove-outline"></ion-icon> {{returnFlight.destination_date}}</h5>
+
             <ion-row>
               <ion-col size="1">
               </ion-col>
@@ -110,37 +114,41 @@
 
     <ion-row>
       <ion-col style="font-weight: bold;">Adults</ion-col>
-      <ion-col>2</ion-col>
-      <ion-col>300</ion-col>
-      <ion-col *ngIf="round">250</ion-col>
-      <ion-col>1098</ion-col>
+      <ion-col>{{adults}}</ion-col>
+      <ion-col>{{departureFlight.adult_price}}</ion-col>
+      <ion-col *ngIf="round">{{returnFlight.adult_price}}</ion-col>
+      <ion-col>{{getAdultSubtotal()}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col style="font-weight: bold;">Child.</ion-col>
-      <ion-col>2</ion-col>
-      <ion-col>300</ion-col>
-      <ion-col *ngIf="round">250</ion-col>
-      <ion-col>1098</ion-col>
+      <ion-col>{{children}}</ion-col>
+      <ion-col>{{departureFlight.child_price}}</ion-col>
+      <ion-col *ngIf="round">{{returnFlight.child_price}}</ion-col>
+      <ion-col>{{getChildSubtotal()}}</ion-col>
     </ion-row>
 
     <hr class="solid">
 
     <ion-row [style.margin-right]="round?'4%':'6%'">
       <ion-col class="ion-text-right" size="8" style="font-weight: bold; color: #7883ff;">SubTotal</ion-col>
-      <ion-col class="ion-text-right" size="4">$10980</ion-col>
+      <ion-col class="ion-text-right" size="4">${{getSubtotal()}}</ion-col>
     </ion-row>
     <ion-row [style.margin-right]="round?'4%':'6%'">
       <ion-col class="ion-text-right" size="8" style="font-weight: bold; color: #ffc409;">Tax 12%</ion-col>
-      <ion-col class="ion-text-right" size="4">$10980</ion-col>
+      <ion-col class="ion-text-right" size="4">${{getTax()}}</ion-col>
     </ion-row>
     <ion-row [style.margin-right]="round?'4%':'6%'">
       <ion-col class="ion-text-right" size="8" style="font-weight: bold; color: white;">Total</ion-col>
-      <ion-col class="ion-text-right" size="4">$10980</ion-col>
+      <ion-col class="ion-text-right" size="4">${{getTotal()}}</ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-button class="btn-checkout" shape="round" color="tertiary" style="font-weight: bold;width: 8rem;">
+  <ion-button id="book-alert" class="btn-checkout" shape="round" color="tertiary"
+    style="font-weight: bold;width: 8rem;">
     Book
   </ion-button>
+
+  <ion-alert trigger="book-alert" header="Booking tickets!" message="Are you sure yo want to book it?"
+    [buttons]="alertButtons"></ion-alert>
 
 </ion-content>
