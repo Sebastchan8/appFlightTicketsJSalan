@@ -34,6 +34,10 @@ export class FlightsService {
     return this.http.get('/assets/data/user.json');
   }
 
+  getUserTickets(){
+    return this.http.get('/assets/data/mytickets.json');
+  }
+
 
 
   // obtenerCurso(id: string){
