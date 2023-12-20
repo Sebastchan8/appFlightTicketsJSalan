@@ -43,6 +43,14 @@ const routes: Routes = [
     path: 'mytickets',
     loadChildren: () => import('./pages/mytickets/mytickets.module').then( m => m.MyticketsPageModule)
   },
+  {
+    path: 'cities',
+    loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule)
+  },
+  {
+    path: 'flights',
+    loadChildren: () => import('./pages/flights/flights.module').then( m => m.FlightsPageModule)
+  },
 ];
 
 @NgModule({

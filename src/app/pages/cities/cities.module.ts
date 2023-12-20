@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdminPageRoutingModule } from './admin-routing.module';
+import { CitiesPageRoutingModule } from './cities-routing.module';
 
-import { AdminPage } from './admin.page';
-import { AdminPipe } from '../admin.pipe';
+import { CitiesPage } from './cities.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminPageRoutingModule
+    CitiesPageRoutingModule
   ],
-  declarations: [AdminPage, AdminPipe]
+  declarations: [CitiesPage]
 })
-export class AdminPageModule {}
+export class CitiesPageModule {}
