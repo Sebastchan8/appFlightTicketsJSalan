@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{city.city ? 'Updating the City':'Adding a City'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="cityForm" (ngSubmit)="onSubmit()"  class="ion-text-center">
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input formControlName="city" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Country</ion-label>
+      <ion-input formControlName="country" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Continent</ion-label>
+      <ion-input formControlName="continent" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Image</ion-label>
+      <ion-input formControlName="img" required></ion-input>
+    </ion-item>
+
+    <ion-button style="margin-top: 1rem; width: 6rem;" type="submit" color="tertiary" 
+    shape="round" [disabled]="cityForm.invalid">Save</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,28 @@
+.center-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.center-button {
+    display: block;
+    margin: 2rem auto;
+    width: 70%;
+}
+
+.small-text {
+    font-size: 15px;
+}
+
+.medium-text {
+    font-size: 18px;
+}
+
+.card{
+    border-radius: 18px;
+}
+
+.notifications-modal{
+    padding-top: 15%;
+    padding-bottom: 100%;
+}

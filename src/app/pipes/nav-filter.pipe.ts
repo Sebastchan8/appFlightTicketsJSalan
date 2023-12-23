@@ -11,7 +11,7 @@ export class NavFilterPipe implements PipeTransform {
     }
 
     return array.filter(item =>{
-      return item[column].includes(text)
+      return item[column].toLowerCase().includes(text)
     })
   }
 

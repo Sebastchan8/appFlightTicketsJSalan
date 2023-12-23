@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CitiesPageRoutingModule } from './cities-routing.module';
 
 import { CitiesPage } from './cities.page';
+import { CityFormModule } from 'src/app/components/city-form/city-form.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CitiesPageRoutingModule
+    CitiesPageRoutingModule,
+    CityFormModule
   ],
   declarations: [CitiesPage]
 })

@@ -3,42 +3,42 @@
         "id":1,
         "city":"Barcelona",
         "country":"Spain",
-        "continent":"europe",
+        "continent":"Europe",
         "img":"https://a.cdn-hotels.com/gdcs/production81/d1983/1441d9b5-d0e6-4230-9923-646d58ba66d8.jpg"
     },
     {
         "id":2,
         "city":"Ambato",
         "country":"Ecuador",
-        "continent":"america",
+        "continent":"America",
         "img":"https://ecuadors.live/wp-content/uploads/2022/11/Turismo-en-el-canton-Ambato-Ecuador.png"
     },
     {
         "id":3,
         "city":"Cairo",
         "country":"Egypt",
-        "continent":"africa",
+        "continent":"Africa",
         "img":"https://images.adsttc.com/media/images/64a2/cdae/cb9c/464f/a63a/9764/large_jpg/cairo-architecture-city-guide-exploring-the-unique-architectural-blend-of-historical-and-contemporary-in-egypts-bustling-capital_23.jpg?1688391095"
     },
     {
         "id":4,
         "city":"Tokyo",
         "country":"Japan",
-        "continent":"asia",
+        "continent":"Asia",
         "img":"https://www.gotokyo.org/en/plan/tokyo-outline/images/main.jpg"
     },
     {
         "id":5,
         "city":"São Paulo",
         "country":"Brazil",
-        "continent":"america",
+        "continent":"America",
         "img":"https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic2755922.jpg?w=1600&h=1068"
     },
     {
         "id":6,
         "city":"Seoul",
         "country":"South Korea",
-        "continent":"asia",
+        "continent":"Asia",
         "img":"https://a.cdn-hotels.com/gdcs/production144/d1960/191730c7-8e21-4540-825c-65954ae4d132.jpg?impolicy=fcrop&w=800&h=533&q=medium"
     }
 ]
