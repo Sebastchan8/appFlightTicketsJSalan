@@ -38,6 +38,14 @@ export class FlightsService {
     return this.http.get('/assets/data/mytickets.json');
   }
 
+  getTickets(){
+    return this.http.get('/assets/data/flights.json');
+  }
+
+  getAerolines(){
+    return this.http.get('/assets/data/aerolines.json');
+  }
+
 
 
   // obtenerCurso(id: string){

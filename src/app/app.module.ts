@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent, 
     FilterComponent,
-  ], //For components
+  ],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 

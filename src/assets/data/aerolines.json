@@ -1,0 +1,17 @@
+[
+    {
+        "aeroline_id":1,
+        "aeroline_name":"Avianca",
+        "aeroline_img":"https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107"
+    },
+    {
+        "aeroline_id":2,
+        "aeroline_name":"Airlanes",
+        "aeroline_img":"https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107"
+    },
+    {
+        "aeroline_id":3,
+        "aeroline_name":"AIR-plane",
+        "aeroline_img":"https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107"
+    }
+]

@@ -1,18 +1,41 @@
-<form>
-  <ion-item id="open-departure-modal" (click)="setInitialResults()">
-    <ion-label position="floating" class="label-title">
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{flight.flight_id ? 'Updating the flight':'Adding a flight'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<form [formGroup]="flightForm">
+  <ion-item>
+    <ion-label position="floating" style="color: #98a1fb;">
+      <ion-icon name="airplane-outline"></ion-icon>
+      Aeroline
+    </ion-label>
+    <ion-select [(ngModel)]="selectedAeroline" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let aeroline of aerolines" [value]="aeroline.aeroline_name">
+        {{ aeroline.aeroline_name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item id="open-departure-modal">
+    <ion-label position="floating" style="color: #98a1fb;">
       <ion-icon src="../../../assets/icon/departure.svg"></ion-icon>
       Departure
     </ion-label>
-    <h5>{{departure}}</h5>
+    <ion-input formControlName="departure_city"></ion-input>
   </ion-item>
 
   <ion-item id="open-destination-modal" (click)="setInitialResults()">
-    <ion-label position="floating" class="label-title">
+    <ion-label position="floating" style="color: #98a1fb;">
       <ion-icon src="../../../assets/icon/destination.svg"></ion-icon>
       Destination
     </ion-label>
-    <h5>{{destination}}</h5>
+    <ion-input formControlName="destination_city"></ion-input>
   </ion-item>
 
   <ion-item id="date-departure-modal">
@@ -25,60 +48,71 @@
     </h3>
   </ion-item>
 
-
-  <ion-item>
-    <ion-toggle (click)="round = !round" color="tertiary">Round</ion-toggle>
-  </ion-item>
-
-  <ion-item id="date-return-modal" [disabled]="!round">
+  <ion-item id="date-return-modal">
     <ion-label position="floating" class="label-title">
       <ion-icon src="../../../assets/icon/return-date.svg"></ion-icon>
-      Return Date
+      Destination Date
     </ion-label>
     <h3>{{returnDateString}}</h3>
   </ion-item>
 
-  <ion-item>
+  <ion-item style="margin-top: 4%;">
     <div class="counter-container">
-      <ion-label style="font-size: 15px;">
+      <ion-label style="font-size: 18px;">
         <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
         Adults
       </ion-label>
+      <div class="number-input" style="font-size: 16px;">
+        <div>Seats</div>
+        <div>$Price</div>
+      </div>
       <div class="number-input">
         <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input max="30" type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
         <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        
+        <ion-button style="margin-left: 10%;" (click)="decAdultPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+        <ion-input type="number" [(ngModel)]="adultsPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-button (click)="addAdultPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
       </div>
     </div>
   </ion-item>
 
-  <ion-item>
+  <ion-item style="margin-top: 4%;">
     <div class="counter-container">
-      <ion-label style="font-size: 15px;">
+      <ion-label style="font-size: 18px;">
         <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
         Children
       </ion-label>
+      <div class="number-input" style="font-size: 16px;">
+        <div>Seats</div>
+        <div>$Price</div>
+      </div>
       <div class="number-input">
         <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input max="30" type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
         <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        
+        <ion-button style="margin-left: 10%;" (click)="decChildPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+        <ion-input type="number" [(ngModel)]="childrenPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-button (click)="addChildPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
       </div>
     </div>
   </ion-item>
 </form>
 
-<ion-label color="danger" *ngIf="departureDateValue >= returnDateValue && round" style="font-size: 14px;">
+<ion-label color="danger" *ngIf="departureDateValue >= returnDateValue" style="font-size: 14px;">
   * Destination Date should be greater than Departure Date
 </ion-label>
 
-<ion-label color="danger" *ngIf="adultsNumber == 0 && childrenNumber == 0" style="font-size: 14px;">
-  * Select at least a passenger
+<ion-label color="danger" *ngIf="adultsNumber <= 0 && childrenNumber <= 0" style="font-size: 14px;">
+  * Select a valid seats range
 </ion-label>
 
 <ion-button expand="block" shape="round" color="tertiary" 
-[disabled]="getSearchBtnAvailability()" 
-(click)="closePopoverAndNavigate()">
-  Search
+[disabled]="flightForm.invalid" 
+(click)="onSubmit()">
+  Save
 </ion-button>
 
 
@@ -147,7 +181,7 @@
   <ng-template>
 
     <ion-content>
-      <ion-datetime [min]="minDate" [max]="maxDate" #departureDate presentation="date" [value]="departureDateValue"
+      <ion-datetime [min]="minDate" #departureDate [value]="departureDateValue"
         showDefaultButtons="true" size="cover" (ionChange)="departureDateChanged(departureDate.value)" color="tertiary">
         <span slot="title">Select a Departure Date</span>
       </ion-datetime>
@@ -160,7 +194,7 @@
   <ng-template>
 
     <ion-content>
-      <ion-datetime [min]="minDate" [max]="maxDate" #returnDate presentation="date" [value]="returnDateValue"
+      <ion-datetime [min]="minDate" #returnDate [value]="returnDateValue"
         showDefaultButtons="true" size="cover" (ionChange)="returnDateChanged(returnDate.value)" color="tertiary">
         <span slot="title">Select a Return Date</span>
       </ion-datetime>

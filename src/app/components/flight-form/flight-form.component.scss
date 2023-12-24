@@ -1,0 +1,33 @@
+.date-modal {
+    padding-top: 30%;
+}
+
+.label-title {
+    font-size: 14px;
+    color: #98a1fb;
+}
+
+.number-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.custom-input {
+    width: 30px;
+    text-align: center;
+}
+
+.decrement-button,
+.increment-button {
+    font-size: 13px;
+}
+
+.counter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
