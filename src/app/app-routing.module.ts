@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -9,19 +10,23 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'user',
-    loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule)
+    loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'search',
-    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
+    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -33,23 +38,28 @@ const routes: Routes = [
   },
   {
     path: 'reservation',
-    loadChildren: () => import('./pages/reservation/reservation.module').then( m => m.ReservationPageModule)
+    loadChildren: () => import('./pages/reservation/reservation.module').then( m => m.ReservationPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'checkout',
-    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
+    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'mytickets',
-    loadChildren: () => import('./pages/mytickets/mytickets.module').then( m => m.MyticketsPageModule)
+    loadChildren: () => import('./pages/mytickets/mytickets.module').then( m => m.MyticketsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'cities',
-    loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule)
+    loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'flights',
-    loadChildren: () => import('./pages/flights/flights.module').then( m => m.FlightsPageModule)
+    loadChildren: () => import('./pages/flights/flights.module').then( m => m.FlightsPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 

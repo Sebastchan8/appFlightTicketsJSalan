@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { FlightsService } from 'src/app/services/flights.service';
+import { ModalController } from '@ionic/angular';
+import { SuccessModalComponent } from 'src/app/components/success-modal/success-modal.component';
 
 
 @Component({
@@ -13,7 +18,11 @@ export class SignupPage implements OnInit {
   showPassword: boolean = false;
 
 
-  constructor(private formBuilder: FormBuilder,) { }
+  constructor(private formBuilder: FormBuilder,
+    private flightsService:FlightsService,
+    private authService:AuthService,
+    private router: Router,
+    private modalController:ModalController) { }
 
   ngOnInit() {
     this.signForm = this.formBuilder.group({
@@ -29,7 +38,12 @@ export class SignupPage implements OnInit {
   }
 
   onSubmit() {
-    console.log('Formulario válido:', this.signForm.value);
+    this.flightsService.signup(this.signForm.value).subscribe((data:any) => {
+      this.authService.login('user', data.insertId)
+      this.router.navigate(['/home'])
+    }, error => {
+      this.presentSuccessModal()
+    })
   }
 
   togglePasswordVisibility() {
@@ -45,5 +59,17 @@ export class SignupPage implements OnInit {
     } else {
       formGroup.get('password_confirm')?.setErrors(null);
     }
+  }
+
+  async presentSuccessModal() {
+    const modal = await this.modalController.create({
+      component: SuccessModalComponent,
+      cssClass: 'custom-success-modal',
+      componentProps: {
+        message: 'Email already in use!',
+        image: 'https://www.shareicon.net/data/256x256/2015/09/15/101562_incorrect_512x512.png'
+      },
+    });
+    await modal.present();
   }
 }

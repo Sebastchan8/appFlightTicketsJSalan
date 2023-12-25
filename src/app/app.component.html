@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start" contentId="main">
+  <ion-menu side="start" contentId="main" *ngIf="getAuth()">
     <ion-header>
       <ion-toolbar color="tertiary">
         <ion-buttons slot="start">
@@ -15,15 +15,15 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle>
-          <ion-item routerLink="/admin">
+          <ion-item routerLink="/admin" *ngIf="getType() == 'admin'">
             <ion-icon slot="start" name="options-outline"></ion-icon>Admin
           </ion-item>
 
-          <ion-item routerLink="/home">
+          <ion-item routerLink="/home" *ngIf="getType() == 'user'">
             <ion-icon slot="start" name="home-outline"></ion-icon>Home
           </ion-item>
 
-          <ion-item routerLink="/mytickets">
+          <ion-item routerLink="/mytickets" *ngIf="getType() == 'user'">
             <ion-icon slot="start" name="ticket-outline"></ion-icon>My Tickets
           </ion-item>
           
@@ -31,7 +31,7 @@
             <ion-icon slot="start" name="settings-outline"></ion-icon>Settings
           </ion-item>
           
-          <ion-item routerLink="/login">
+          <ion-item (click)="logout()">
             <ion-icon slot="start" name="log-out-outline"></ion-icon>Logout
           </ion-item>
         </ion-menu-toggle>

@@ -2,7 +2,7 @@
   <img src="https://media.staticontent.com/media/pictures/70a7eb77-8187-4cdb-bfd2-59c48268d3cf/605x107" alt="">
   <h1>Join us!</h1>
 
-  <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="signForm">
     <ion-item>
       <ion-label position="floating">First Name</ion-label>
       <ion-input type="text" formControlName="firstname" required></ion-input>
@@ -46,7 +46,7 @@
     <ion-text *ngIf="signForm.get('password_confirm')?.hasError('passwordMismatch')" color="danger" style="font-size: smaller;">
       Passwords do not match.
     </ion-text>
-    <ion-button color="tertiary" expand="full" type="submit" [disabled]="!signForm.valid">Sign up</ion-button>
+    <ion-button color="tertiary" expand="full" (click)="onSubmit()" [disabled]="!signForm.valid">Sign up</ion-button>
   </form>
   
   <p class="footer-text">Already have an account? <a routerLink="/login">Login</a></p>
