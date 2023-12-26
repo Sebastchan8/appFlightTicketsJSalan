@@ -10,15 +10,15 @@ import { FlightsService } from 'src/app/services/flights.service';
 })
 export class ReservationPage implements OnInit {
 
-  departureFlight:any = {round:false}
+  departureFlight: any = { round: false }
 
-  returnFlights!:any
-  selectedFlight:any = false
-  round:any = false
+  returnFlights!: any
+  selectedFlight: any = false
+  round: any = false
 
-  constructor(private flightsService:FlightsService,
-              private route: ActivatedRoute,
-              private navCtrl: NavController) {
+  constructor(private flightsService: FlightsService,
+    private route: ActivatedRoute,
+    private navCtrl: NavController) {
   }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class ReservationPage implements OnInit {
 
     this.flightsService.getFlight(flight_id).subscribe(data => {
       this.departureFlight = data
-      if(round === "true"){
+      if (round === "true") {
         this.flightsService.getRoundFlights(flight_id).subscribe(data => {
           this.returnFlights = data
           this.selectedFlight = this.returnFlights[0];
@@ -35,7 +35,7 @@ export class ReservationPage implements OnInit {
         })
       }
     })
-    
+
   }
 
   adultsNumber: number = 1
@@ -61,35 +61,35 @@ export class ReservationPage implements OnInit {
     }
   }
 
-  getMaxAdultSeats(){
-    if(this.round){
-      if(this.departureFlight.adult_available <= this.selectedFlight.adult_available){
+  getMaxAdultSeats() {
+    if (this.round) {
+      if (this.departureFlight.adult_available <= this.selectedFlight.adult_available) {
         return this.departureFlight.adult_available
-      }else{
+      } else {
         return this.selectedFlight.adult_available
       }
     }
     return this.departureFlight.adult_available
   }
 
-  getMaxChildSeats(){
-    if(this.round){
-      if(this.departureFlight.child_available <= this.selectedFlight.child_available){
+  getMaxChildSeats() {
+    if (this.round) {
+      if (this.departureFlight.child_available <= this.selectedFlight.child_available) {
         return this.departureFlight.child_available
-      }else{
+      } else {
         return this.selectedFlight.child_available
       }
     }
     return this.departureFlight.child_available
   }
 
-  goToCheckout(){
-    this.navCtrl.navigateForward(['/checkout', { 
-        departure_id:this.departureFlight.flight_id,
-        return_id:this.selectedFlight.flight_id,
-        adults:this.adultsNumber,
-        children:this.childrenNumber,
-        round:this.round
+  goToCheckout() {
+    this.navCtrl.navigateForward(['/checkout', {
+      departure_id: this.departureFlight.flight_id,
+      return_id: this.selectedFlight.flight_id,
+      adults: this.adultsNumber,
+      children: this.childrenNumber,
+      round: this.round
     }]);
   }
 

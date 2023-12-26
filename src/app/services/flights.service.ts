@@ -34,24 +34,20 @@ export class FlightsService {
     return this.http.get(this.API + 'cities');
   }
 
-  //IMPORTANT
   getFlight(id:string){
-    return this.http.get('/assets/data/flight.json');
+    return this.http.get(this.API + 'flights/' + id);
   }
 
-  //IMPORTANT
-  getAvailableFlights(){
-    return this.http.get('/assets/data/flights.json');
+  getAvailableFlights(filter:any){
+    return this.http.post(this.API + 'flights', filter);
   }
 
-  //IMPORTANT
   getRoundFlights(id:string){
-    return this.http.get('/assets/data/flights.json');
+    return this.http.get(this.API + 'flights/rounded/' + id);
   }
 
-  //IMPORTANT
   getNotifications(){
-    return this.http.get('/assets/data/notifications.json');
+    return this.http.get(this.API + 'notifications/' + this.authService.currentUser());
   }
 
   getUserData(){
@@ -61,18 +57,25 @@ export class FlightsService {
   updateUserData(body:any){
     return this.http.put(this.API + 'user/' + this.authService.currentUser(), body);
   }
-
-  //IMPORTANT
+  
   getUserTickets(){
-    return this.http.get('/assets/data/mytickets.json');
+    return this.http.get(this.API + 'ticket/' + this.authService.currentUser());
   }
-
+  
   getTickets(){
     return this.http.get(this.API + 'flights');
   }
-
+  
   getAerolines(){
     return this.http.get(this.API + 'aerolines');
+  }
+  
+  buyTicket(body:any){
+    return this.http.put(this.API + 'ticket/' + this.authService.currentUser(), body);
+  }
+  
+  cancelTicket(ticket_id:number){
+    return this.http.delete(this.API + 'ticket/' + ticket_id);
   }
 
 }

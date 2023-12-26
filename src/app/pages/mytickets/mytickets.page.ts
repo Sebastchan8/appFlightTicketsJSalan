@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { FlightsService } from 'src/app/services/flights.service';
+import { ModalController } from '@ionic/angular';
+import { SuccessModalComponent } from 'src/app/components/success-modal/success-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mytickets',
@@ -12,7 +15,9 @@ export class MyticketsPage implements OnInit {
   reservations: any
 
   constructor(private flightsService:FlightsService,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private modalController: ModalController,
+              private router:Router) { }
 
   ngOnInit() {
     this.flightsService.getUserTickets().subscribe(data => {
@@ -53,7 +58,12 @@ export class MyticketsPage implements OnInit {
           role: 'confirm',
           cssClass: 'alert-button-confirm',
           handler: () => {
-            this.handleBookingConfirmation(reservationId);
+            this.flightsService.cancelTicket(reservationId).subscribe(data => {
+              this.flightsService.getUserTickets().subscribe(data => {
+                this.reservations = data
+                this.presentSuccessModal()
+              })
+            })
           },
         },
       ],
@@ -61,8 +71,16 @@ export class MyticketsPage implements OnInit {
   
     await alert.present();
   }
-  
-  handleBookingConfirmation(reservationId: number) {
-    console.log('Reservation ID:', reservationId);
+
+  async presentSuccessModal() {
+    const modal = await this.modalController.create({
+      component: SuccessModalComponent,
+      cssClass: 'custom-success-modal',
+      componentProps: {
+        message: 'Ticket cancelled successfully!',
+        image: 'https://static-00.iconduck.com/assets.00/alert-success-icon-1024x1024-aobtkid4.png'
+      },
+    });
+    await modal.present();
   }
 }

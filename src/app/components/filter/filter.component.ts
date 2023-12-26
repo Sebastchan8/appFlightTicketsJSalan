@@ -6,6 +6,7 @@ import { IonModal, PopoverController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { format, parseISO } from 'date-fns';
 import { FilterService } from 'src/app/services/filter.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -28,9 +29,11 @@ export class FilterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private flightsService: FlightsService,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController,
+  ) { }
 
   filterPopover = inject(FilterService)
+  authService = inject(AuthService)
 
   ngOnInit() {
     this.flightsService.getCities().subscribe((data) => {
@@ -126,13 +129,23 @@ export class FilterComponent implements OnInit {
   }
 
   closePopoverAndNavigate() {
+    this.authService.setFilter({
+      departure_id: this.selectedDepartureCity,
+      destination_id: this.selectedDestinationCity,
+      departure_date: this.departureDateString,
+      destination_date: this.returnDateString,
+      adults: this.adultsNumber,
+      children: this.childrenNumber,
+      round: this.round
+    })
+    
     this.filterPopover.closeFlightFilterPopover()
     this.router.navigate(['search'])
   }
 
-  getSearchBtnAvailability(){
+  getSearchBtnAvailability() {
     return (this.adultsNumber == 0 && this.childrenNumber == 0)
-    || this.departure === "Departure" || this.destination === "Destination"
+      || this.departure === "Departure" || this.destination === "Destination"
   }
 
 }

@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { FilterService } from 'src/app/services/filter.service';
 import { FlightsService } from 'src/app/services/flights.service';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,9 @@ export class HomePage implements OnInit {
   continent = ''
 
   constructor(private flightsService:FlightsService,
-              private filterService:FilterService) { }
+              private filterService:FilterService,
+              private authService:AuthService,
+              private router:Router) { }
 
   ngOnInit() {
     this.cities = this.flightsService.getCities().pipe(
@@ -42,5 +46,14 @@ export class HomePage implements OnInit {
 
   openFlightFilterPopover(event: Event) {
     this.filterService.presentFlightFilterPopover(event);
+  }
+
+  filterByCity(city_id:any){
+    this.authService.setFilter({
+      departure_id: city_id,
+      destination_id: city_id,
+      round: false
+    })
+    this.router.navigate(['search'])
   }
 }

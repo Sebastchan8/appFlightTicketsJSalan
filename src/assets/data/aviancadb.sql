@@ -46,7 +46,7 @@ create table reservations(
     total decimal(10,2),
     status int
 );
-
+insert into notifications values(2, 'airplane-outline', 'Welcome to Avianca!', 'Enjoy all about our flights that are unique for you!')
 create table notifications(
     user_id int references users(user_id),
     icon varchar(255),

@@ -23,7 +23,7 @@ export class CheckoutPage implements OnInit {
     private route: ActivatedRoute,
     public loadingController: LoadingController,
     private modalController: ModalController,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     let departure_id = this.route.snapshot.paramMap.get('departure_id') as string
@@ -32,7 +32,7 @@ export class CheckoutPage implements OnInit {
     let children = parseInt(this.route.snapshot.paramMap.get('children') as string)
     let round = this.route.snapshot.paramMap.get('round') as string
     this.flightsService.getUserData().subscribe((data: any) => {
-      this.fullname = data.name + ' ' + data.lastname
+      this.fullname = data.firstname + ' ' + data.lastname
       this.creditCard = this.getCardFormat(data.card)
 
       this.flightsService.getFlight(departure_id).subscribe(data => {
@@ -55,29 +55,42 @@ export class CheckoutPage implements OnInit {
   }
 
   getAdultSubtotal() {
+    const departurePrice = parseFloat(this.departureFlight.adult_price);
+
     if (this.round) {
-      return this.adults * (this.departureFlight.adult_price + this.returnFlight.adult_price)
+      const returnPrice = parseFloat(this.returnFlight.adult_price);
+      return this.adults * (departurePrice + returnPrice);
     }
-    return this.adults * this.departureFlight.adult_price
+
+    return this.adults * departurePrice;
   }
+
 
   getChildSubtotal() {
+    const departureChildPrice = parseFloat(this.departureFlight.child_price);
+
     if (this.round) {
-      return this.children * (this.departureFlight.child_price + this.returnFlight.child_price)
+      const returnChildPrice = parseFloat(this.returnFlight.child_price);
+      return this.children * (departureChildPrice + returnChildPrice);
     }
-    return this.children * this.departureFlight.child_price
+
+    return this.children * departureChildPrice;
   }
 
+
   getSubtotal() {
-    return this.getAdultSubtotal() + this.getChildSubtotal()
+    const sub = this.getAdultSubtotal() + this.getChildSubtotal()
+    return Number(sub.toFixed(2));
   }
 
   getTax() {
-    return this.getSubtotal() * 0.12
+    const tax = this.getSubtotal() * 0.12;
+    return Number(tax.toFixed(2));
   }
 
   getTotal() {
-    return this.getSubtotal() + this.getTax()
+    const total = this.getSubtotal() + this.getTax();
+    return Number(total.toFixed(2));
   }
 
   alertButtons = [
@@ -91,8 +104,16 @@ export class CheckoutPage implements OnInit {
       role: 'confirm',
       cssClass: 'alert-button-confirm',
       handler: () => {
-        //BUY TICKET
-        this.presentLoading();
+
+        this.flightsService.buyTicket({
+          departure_flight_id: this.departureFlight.flight_id,
+          return_flight_id: this.returnFlight.flight_id,
+          adults: this.adults,
+          children: this.children,
+          total: this.getTotal()
+        }).subscribe(data => {
+          this.presentLoading();
+        })
       },
     },
   ];

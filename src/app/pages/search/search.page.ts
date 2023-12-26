@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { FlightsService } from 'src/app/services/flights.service';
 
@@ -11,14 +12,29 @@ import { FlightsService } from 'src/app/services/flights.service';
 export class SearchPage implements OnInit {
 
   flights!:any
+  round!:boolean
 
   constructor(private filterService:FilterService, 
               private flightsService: FlightsService,
-              private navCtrl: NavController) { }
+              private navCtrl: NavController,
+              private authService:AuthService) { }
+  
 
   ngOnInit() {
-    this.flightsService.getAvailableFlights().subscribe(data => {
-      this.flights = data
+    this.flightsService.getAvailableFlights(this.authService.getFilter()).subscribe((data:any) => {
+      console.log("FILTRADO: ", data);
+      
+      this.round = data.round
+      let array = data.flights
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      if(this.round){
+        this.flights = array.filter((flight:any) => flight.round == true)
+      }else{
+        this.flights = array
+      }
     })
   }
 
@@ -27,6 +43,6 @@ export class SearchPage implements OnInit {
   }
 
   goToReservation(ticket:any){
-    this.navCtrl.navigateForward(['/reservation', { flight_id:ticket.flight_id, round:ticket.round }]);
+    this.navCtrl.navigateForward(['/reservation', { flight_id:ticket.flight_id, round:this.round }]);
   }
 }

@@ -47,7 +47,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let city of (cities | async) | navFilter:continent:'continent'">
-        <ion-card class="card">
+        <ion-card class="card" (click)="filterByCity(city.id)">
           <ion-img class="size-img" src="{{city.img}}"></ion-img>
           <ion-card-header>
             <ion-card-title class="medium-text">{{city.city}}</ion-card-title>

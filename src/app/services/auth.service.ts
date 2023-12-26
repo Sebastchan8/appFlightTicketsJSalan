@@ -10,6 +10,8 @@ export class AuthService {
   private userType!: string
   private user!: number
 
+  private filter!:any
+
   constructor() {}
 
   login(type:string, currentUser:number) {
@@ -32,5 +34,13 @@ export class AuthService {
 
   currentUser(): number {
     return this.user
+  }
+
+  setFilter(filter:any){
+    this.filter = filter
+  }
+
+  getFilter(){
+    return this.filter
   }
 }

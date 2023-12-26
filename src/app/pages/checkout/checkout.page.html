@@ -38,8 +38,7 @@
         <ion-col size="9">
           <ion-card-title class="medium-text ion-text-center">{{departureFlight.departure_city}} <ion-icon
               name="arrow-forward-outline"></ion-icon> {{departureFlight.destination_city}}</ion-card-title>
-          <h5 class="small-text ion-text-center">{{departureFlight.departure_date}} <ion-icon
-              name="remove-outline"></ion-icon> {{departureFlight.destination_date}}</h5>
+              <h5 class="small-text ion-text-center">{{ departureFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ departureFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
 
           <ion-row>
             <ion-col size="1">
@@ -72,8 +71,7 @@
           <ion-col size="9">
             <ion-card-title class="medium-text ion-text-center">{{returnFlight.departure_city}} <ion-icon
                 name="arrow-forward-outline"></ion-icon> {{returnFlight.destination_city}}</ion-card-title>
-            <h5 class="small-text ion-text-center">{{returnFlight.departure_date}} <ion-icon
-                name="remove-outline"></ion-icon> {{returnFlight.destination_date}}</h5>
+                <h5 class="small-text ion-text-center">{{ returnFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ returnFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
 
             <ion-row>
               <ion-col size="1">
