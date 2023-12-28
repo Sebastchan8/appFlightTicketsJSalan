@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { FlightFormComponent } from 'src/app/components/flight-form/flight-form.component';
 import { FlightsService } from 'src/app/services/flights.service';
@@ -16,8 +17,10 @@ export class FlightsPage implements OnInit {
 
   constructor(private flightsService: FlightsService,
     private alertController: AlertController,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+  ) { }
 
+  router = inject(Router)
   ngOnInit() {
     this.flightsService.getTickets().subscribe(data => {
       this.tickets = data
@@ -42,6 +45,13 @@ export class FlightsPage implements OnInit {
     );
   }
 
+  load() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/loading-admin', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
   async addTicket() {
     const modal = await this.modalController.create({
       component: FlightFormComponent,
@@ -50,6 +60,8 @@ export class FlightsPage implements OnInit {
     });
 
     await modal.present();
+    const { data } = await modal.onDidDismiss()
+    this.load()
   }
 
   async editTicket(flight: any) {
@@ -60,6 +72,8 @@ export class FlightsPage implements OnInit {
     });
 
     await modal.present();
+    const { data } = await modal.onDidDismiss()
+    this.load()
   }
 
   async presentDeleteAlert(flightId: number) {
@@ -77,7 +91,9 @@ export class FlightsPage implements OnInit {
           role: 'confirm',
           cssClass: 'alert-button-confirm',
           handler: () => {
-            console.log('Deleting ticket with ID:', flightId);
+            this.flightsService.deleteFlight(flightId).subscribe(data => {
+              this.load()
+            })
           },
         },
       ],

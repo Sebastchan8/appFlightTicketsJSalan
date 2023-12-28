@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FlightsService } from 'src/app/services/flights.service';
@@ -30,6 +30,7 @@ export class FilterComponent implements OnInit {
     private router: Router,
     private flightsService: FlightsService,
     private popoverController: PopoverController,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   filterPopover = inject(FilterService)
@@ -140,7 +141,15 @@ export class FilterComponent implements OnInit {
     })
     
     this.filterPopover.closeFlightFilterPopover()
-    this.router.navigate(['search'])
+    const currentUrl = this.router.url;
+    if(currentUrl == '/home'){
+      this.router.navigate(['/search']);
+    }else{
+      this.router.navigateByUrl('/loading', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    }
+    
   }
 
   getSearchBtnAvailability() {

@@ -38,6 +38,24 @@ export class SearchPage implements OnInit {
     })
   }
 
+  public setChanges(){
+    this.flightsService.getAvailableFlights(this.authService.getFilter()).subscribe((data:any) => {
+      console.log("FILT CAMBIOS: ", data);
+      
+      this.round = data.round
+      let array = data.flights
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      if(this.round){
+        this.flights = array.filter((flight:any) => flight.round == true)
+      }else{
+        this.flights = array
+      }
+    })
+  }
+
   openFlightFilterPopover(event: Event) {
     this.filterService.presentFlightFilterPopover(event);
   }

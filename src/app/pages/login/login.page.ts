@@ -38,13 +38,13 @@ export class LoginPage implements OnInit {
       if (data.user.user_id) {
         this.loginForm.setValue({email:'', password:''})
 
-        if (email === 'admin@avianca.com'){
+        if (email === 'a@a'){
           this.authService.login('admin', data.user.user_id)
-          this.router.navigate(['/admin'])
+          this.router.navigate(['/loading-admin'])
         }
         else{
           this.authService.login('user', data.user.user_id)
-          this.router.navigate(['/home'])
+          this.router.navigate(['/loading'])
         }
       }
       

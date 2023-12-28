@@ -34,6 +34,18 @@ export class FlightsService {
     return this.http.get(this.API + 'cities');
   }
 
+  addCity(city:any){
+    return this.http.post(this.API + 'cities', city);
+  }
+
+  updateCity(city:any){
+    return this.http.put(this.API + 'cities', city);
+  }
+
+  deleteCity(city_id:any){
+    return this.http.delete(this.API + 'cities/' + city_id);
+  }
+
   getFlight(id:string){
     return this.http.get(this.API + 'flights/' + id);
   }
@@ -76,6 +88,18 @@ export class FlightsService {
   
   cancelTicket(ticket_id:number){
     return this.http.delete(this.API + 'ticket/' + ticket_id);
+  }
+
+  addFlight(flight:any){
+    return this.http.post(this.API + 'flights-crud', flight);
+  }
+
+  updateFlight(flight:any){
+    return this.http.put(this.API + 'flights-crud', flight);
+  }
+
+  deleteFlight(flight_id:any){
+    return this.http.delete(this.API + 'flights-crud/' + flight_id);
   }
 
 }

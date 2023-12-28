@@ -61,6 +61,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/flights/flights.module').then( m => m.FlightsPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'loading',
+    loadChildren: () => import('./pages/loading/loading.module').then( m => m.LoadingPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'loading-admin',
+    loadChildren: () => import('./pages/loading-admin/loading-admin.module').then( m => m.LoadingAdminPageModule)
+  },
 ];
 
 @NgModule({

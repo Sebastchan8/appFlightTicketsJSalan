@@ -68,6 +68,7 @@ export class FlightFormComponent implements OnInit {
   onSubmit() {
     const flight_id = this.flightForm.value.flight_id
     let flightObj:any = {
+      "aeroline_name":this.selectedAeroline,
       "departure_city_id": this.selectedDepartureCity,
       "destination_city_id": this.selectedDestinationCity,
       "departure_date": this.departureDateString,
@@ -78,13 +79,10 @@ export class FlightFormComponent implements OnInit {
       "child_available": this.childrenNumber,
     }
     if (flight_id) {
-      console.log("UPDATED")
-      //Choose add flight_id or the service url add id
       flightObj.flight_id = flight_id;
-      console.log(flightObj)
+      this.flightsService.updateFlight(flightObj).subscribe(data =>{})
     } else {
-      console.log("ADDED")
-      console.log(flightObj)
+      this.flightsService.addFlight(flightObj).subscribe(data =>{})
     }
     this.dismiss()
   }

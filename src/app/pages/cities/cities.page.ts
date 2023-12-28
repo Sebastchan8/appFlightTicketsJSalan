@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { CityFormComponent } from 'src/app/components/city-form/city-form.component';
 import { FlightsService } from 'src/app/services/flights.service';
@@ -15,13 +16,21 @@ export class CitiesPage implements OnInit {
 
   constructor(private flightsService:FlightsService,
     private alertController: AlertController,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    private router:Router) { }
 
   ngOnInit() {
     this.flightsService.getCities().subscribe(data => {
       this.cities = data
       this.filteredCities = [...this.cities];
     })
+  }
+
+  load(){
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/loading-admin', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
   handleChange(event: any) {
@@ -41,6 +50,8 @@ export class CitiesPage implements OnInit {
     });
 
     await modal.present();
+    const { data } = await modal.onDidDismiss()
+    this.load()
   }
 
   async editCity(city: any) {
@@ -51,6 +62,8 @@ export class CitiesPage implements OnInit {
     });
 
     await modal.present();
+    const { data } = await modal.onDidDismiss()
+    this.load()
   }
 
   async presentDeleteAlert(cityId: number) {
@@ -68,7 +81,9 @@ export class CitiesPage implements OnInit {
           role: 'confirm',
           cssClass: 'alert-button-confirm',
           handler: () => {
-            console.log('Deleting city with ID:', cityId);
+            this.flightsService.deleteCity(cityId).subscribe(data => {
+              this.load()
+            })
           },
         },
       ],

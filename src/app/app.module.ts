@@ -11,11 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FilterComponent } from './components/filter/filter.component';
 import { FormsModule } from '@angular/forms';
+import { LoadingPipe } from './pages/loading.pipe';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    FilterComponent,
+    FilterComponent, LoadingPipe,
   ],
   imports: [
     BrowserModule, 

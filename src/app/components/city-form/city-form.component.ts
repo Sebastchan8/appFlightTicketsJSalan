@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { FlightsService } from 'src/app/services/flights.service';
 
 @Component({
   selector: 'app-city-form',
@@ -14,7 +15,8 @@ export class CityFormComponent implements OnInit {
   cityForm: FormGroup
   
   constructor(private formBuilder: FormBuilder,
-    private modalController: ModalController) {
+    private modalController: ModalController,
+    private fligthsService:FlightsService) {
     this.cityForm = this.formBuilder.group({
       id: [''],
       city: ['', Validators.required],
@@ -39,12 +41,10 @@ export class CityFormComponent implements OnInit {
   onSubmit() {
     const city = this.cityForm.value
     if(this.city.city){
-      console.log("UPDATED")
-      console.log(city)
+      this.fligthsService.updateCity(city).subscribe(data =>{})
     }else{
-      console.log("ADDED")
       delete city.id
-      console.log(city)
+      this.fligthsService.addCity(city).subscribe(data =>{})
     }
     this.dismiss()
   }
