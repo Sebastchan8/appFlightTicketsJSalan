@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { CityFormComponent } from 'src/app/components/city-form/city-form.component';
 import { FlightsService } from 'src/app/services/flights.service';
 
@@ -17,7 +17,8 @@ export class CitiesPage implements OnInit {
   constructor(private flightsService:FlightsService,
     private alertController: AlertController,
     private modalController: ModalController,
-    private router:Router) { }
+    private router:Router,
+    private platform: Platform) { }
 
   ngOnInit() {
     this.flightsService.getCities().subscribe(data => {
@@ -92,4 +93,15 @@ export class CitiesPage implements OnInit {
     return await popover.present();
   }
   
+  getDynamicSize(): string {
+    const width = this.platform.width();
+
+    if (width >= 992) {
+      return '3';
+    } else if (width >= 768) {
+      return '4';
+    } else {
+      return '6';
+    }
+  }
 }

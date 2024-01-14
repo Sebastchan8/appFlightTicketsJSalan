@@ -10,8 +10,7 @@ import { FlightsService } from './services/flights.service';
 })
 export class AppComponent {
   constructor(private authService: AuthService,
-    private router: Router,
-    private flightsService: FlightsService) { }
+    private router: Router) { }
 
   getAuth() {
     return this.authService.isLoggedIn()
@@ -22,7 +21,6 @@ export class AppComponent {
   }
 
   logout() {
-    this.flightsService.logout()
     this.authService.logout()
     this.router.navigate(['/login'])
   }

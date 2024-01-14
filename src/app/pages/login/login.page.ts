@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
       if (data.user.user_id) {
         this.loginForm.setValue({email:'', password:''})
 
-        if (email === 'a@a'){
+        if (email === 'admin@admin.com'){
           this.authService.login('admin', data.user.user_id)
           this.router.navigate(['/loading-admin'])
         }

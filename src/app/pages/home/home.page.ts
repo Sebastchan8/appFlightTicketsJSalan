@@ -5,6 +5,7 @@ import { FlightsService } from 'src/app/services/flights.service';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomePage implements OnInit {
   constructor(private flightsService:FlightsService,
               private filterService:FilterService,
               private authService:AuthService,
-              private router:Router) { }
+              private router:Router,
+              private platform: Platform) { }
 
   ngOnInit() {
     this.cities = this.flightsService.getCities().pipe(
@@ -55,5 +57,17 @@ export class HomePage implements OnInit {
       round: false
     })
     this.router.navigate(['search'])
+  }
+
+  getDynamicSize(): string {
+    const width = this.platform.width();
+
+    if (width >= 992) {
+      return '3';
+    } else if (width >= 768) {
+      return '4';
+    } else {
+      return '6';
+    }
   }
 }

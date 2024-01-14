@@ -7,25 +7,28 @@
   </ion-toolbar>
 </ion-header> 
 
-<ion-content [fullscreen]="true">
+<div class="main-content">
+  <ion-content [fullscreen]="true">
+  
+    <ion-card class="add-city-card" routerLink="/cities">
+      <ion-card-content>
+        <div class="background-image-city"></div>
+        <div class="card-content">
+          <h2>Cities Manager</h2>
+        </div>
+      </ion-card-content>
+    </ion-card> 
+  
+    <ion-card class="add-city-card" routerLink="/flights">
+      <ion-card-content>
+        <div class="background-image-flight"></div>
+        <div class="card-content">
+          <h2>Flights Manager</h2>
+        </div>
+      </ion-card-content>
+    </ion-card> 
+  
+  
+  </ion-content>
 
-  <ion-card class="add-city-card" routerLink="/cities">
-    <ion-card-content>
-      <div class="background-image-city"></div>
-      <div class="card-content">
-        <h2>Cities Manager</h2>
-      </div>
-    </ion-card-content>
-  </ion-card> 
-
-  <ion-card class="add-city-card" routerLink="/flights">
-    <ion-card-content>
-      <div class="background-image-flight"></div>
-      <div class="card-content">
-        <h2>Flights Manager</h2>
-      </div>
-    </ion-card-content>
-  </ion-card> 
-
-
-</ion-content>
+</div>

@@ -18,10 +18,6 @@ export class FlightsService {
   login(email:string, password:string){
     return this.http.post(this.API + "login", {email, password})
   }
-
-  logout(){
-    return this.http.get(this.API + "logout")
-  }
   
   signup(body:any){
     return this.http.post(this.API + "signup", body)

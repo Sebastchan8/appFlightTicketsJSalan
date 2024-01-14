@@ -24,25 +24,28 @@ export class FlightsPage implements OnInit {
   ngOnInit() {
     this.flightsService.getTickets().subscribe(data => {
       this.tickets = data
-      this.filteredTickets = [...this.tickets];
-      console.log(this.tickets)
+      this.filteredTickets = [...this.tickets].sort(() => Math.random() - 0.5).slice(0, 20)
     })
   }
 
   handleChange(event: any) {
     const query = event.target.value.toLowerCase();
-    this.filteredTickets = this.tickets.filter((ticket: any) =>
-      (Array.isArray(ticket.flight_id) && ticket.flight_id.toString().toLowerCase().includes(query)) ||
-      ticket.aeroline_name.toLowerCase().includes(query) ||
-      ticket.departure_date.toLowerCase().includes(query) ||
-      ticket.destination_city.toLowerCase().includes(query) ||
-      ticket.destination_date.toLowerCase().includes(query) ||
-      ticket.adult_price.toString().toLowerCase().includes(query) ||
-      ticket.child_price.toString().toLowerCase().includes(query) ||
-      ticket.adult_available.toString().toLowerCase().includes(query) ||
-      ticket.child_available.toString().toLowerCase().includes(query) ||
-      ticket.departure_city.toLowerCase().includes(query)
-    );
+    if(query){
+      this.filteredTickets = this.tickets.filter((ticket: any) =>
+        (Array.isArray(ticket.flight_id) && ticket.flight_id.toString().toLowerCase().includes(query)) ||
+        ticket.aeroline_name.toLowerCase().includes(query) ||
+        ticket.departure_date.toLowerCase().includes(query) ||
+        ticket.destination_city.toLowerCase().includes(query) ||
+        ticket.destination_date.toLowerCase().includes(query) ||
+        ticket.adult_price.toString().toLowerCase().includes(query) ||
+        ticket.child_price.toString().toLowerCase().includes(query) ||
+        ticket.adult_available.toString().toLowerCase().includes(query) ||
+        ticket.child_available.toString().toLowerCase().includes(query) ||
+        ticket.departure_city.toLowerCase().includes(query)
+      );
+    }else{
+      this.filteredTickets = [...this.tickets].sort(() => Math.random() - 0.5).slice(0, 20)
+    }
   }
 
   load() {

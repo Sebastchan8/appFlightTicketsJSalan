@@ -12,93 +12,97 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
-  <ion-item *ngFor="let reservation of reservations">
-    <div class="title-container">
-      <div class="header-container">
-        <h4><strong style="color: #838dfc;">Reservation ID:</strong> {{reservation.reservation_id}}</h4>
-        <ion-button [color]="getStatusColor(reservation.status)" 
-        shape="round" [disabled]="reservation.status != 0" 
-        (click)="presentCancelAlert(reservation.reservation_id)">{{getStatusText(reservation.status)}}</ion-button>
-      </div>
-      <ion-grid>
-        <ion-row>
-          <ion-col style="margin-left: 17%;"><strong style="color: #f6f1c6">Adults: </strong>{{reservation.adults}}</ion-col>
-          <ion-col><strong style="color: #f6f1c6;">Child: </strong>{{reservation.children}}</ion-col>
-        </ion-row>
-        <ion-row class="ion-text-center">
-          <ion-col><strong style="color: #f6f1c6;">Total: </strong>${{reservation.total}}</ion-col>
-        </ion-row>
-      </ion-grid>
-      <h5 style="font-weight: bold;" class="ion-text-left">Departure Ticket</h5>
-    </div>
-    <ion-card class="card">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="3" class="ion-text-center">
-            <ion-img class="size-img" src="{{reservation.departureFlight.aeroline_img}}"></ion-img>
-          </ion-col>
-          <ion-col size="9">
-            <ion-card-title class="medium-text ion-text-center">{{reservation.departureFlight.departure_city}} <ion-icon
-                name="arrow-forward-outline"></ion-icon> {{reservation.departureFlight.destination_city}}</ion-card-title>
-                <h5 class="small-text ion-text-center">{{ reservation.departureFlight.departure_date | date:"yyyy-MM-dd hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ reservation.departureFlight.destination_date | date:"yyyy-MM-dd hh:mm" }}</h5>
-
-            <ion-row>
-              <ion-col size="1">
-              </ion-col>
-              <ion-col size="6">
-                <p style="color:#98a1fb;">Adults</p>
-                <p style="color:white;font-weight: bold;">${{reservation.departureFlight.adult_price}}</p>
-                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.departureFlight.adult_available}}</p>
-              </ion-col>
-              <ion-col size="5">
-                <p style="color:#98a1fb;">Children</p>
-                <p style="color:white;font-weight: bold;">${{reservation.departureFlight.child_price}}</p>
-                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.departureFlight.child_available}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
-
-    <div *ngIf="reservation.returnFlight.flight_id">
-      <h5 style="font-weight: bold;" class="ion-text-left">Return Ticket</h5>
-
-      <ion-card class="card">
+<div class="main-content">
+  <ion-content [fullscreen]="true">
+  
+    <ion-item *ngFor="let reservation of reservations">
+      <div class="title-container">
+        <div class="header-container">
+          <h4><strong style="color: #838dfc;">Reservation ID:</strong> {{reservation.reservation_id}}</h4>
+          <ion-button [color]="getStatusColor(reservation.status)" 
+          shape="round" [disabled]="reservation.status != 0" 
+          (click)="presentCancelAlert(reservation.reservation_id)">{{getStatusText(reservation.status)}}</ion-button>
+        </div>
         <ion-grid>
           <ion-row>
-            <ion-col size="3" class="ion-text-center">
-              <ion-img class="size-img" src="{{reservation.returnFlight.aeroline_img}}"></ion-img>
-            </ion-col>
-            <ion-col size="9">
-              <ion-card-title class="medium-text ion-text-center">{{reservation.returnFlight.departure_city}} <ion-icon
-                  name="arrow-forward-outline"></ion-icon> {{reservation.returnFlight.destination_city}}</ion-card-title>
-                  <h5 class="small-text ion-text-center">{{ reservation.returnFlight.departure_date | date:"yyyy-MM-dd hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ reservation.returnFlight.destination_date | date:"yyyy-MM-dd hh:mm" }}</h5>
-
-              <ion-row>
-                <ion-col size="1">
-                </ion-col>
-                <ion-col size="6">
-                  <p style="color:#98a1fb;">Adults</p>
-                  <p style="color:white;font-weight: bold;">${{reservation.returnFlight.adult_price}}</p>
-                  <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.returnFlight.adult_available}}</p>
-                </ion-col>
-                <ion-col size="5">
-                  <p style="color:#98a1fb;">Children</p>
-                  <p style="color:white;font-weight: bold;">${{reservation.returnFlight.child_price}}</p>
-                  <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.returnFlight.child_available}}</p>
-                </ion-col>
-              </ion-row>
-            </ion-col>
+            <ion-col style="margin-left: 17%;"><strong style="color: #f6f1c6">Adults: </strong>{{reservation.adults}}</ion-col>
+            <ion-col><strong style="color: #f6f1c6;">Child: </strong>{{reservation.children}}</ion-col>
+          </ion-row>
+          <ion-row class="ion-text-center">
+            <ion-col><strong style="color: #f6f1c6;">Total: </strong>${{reservation.total}}</ion-col>
           </ion-row>
         </ion-grid>
-      </ion-card>
+        <h5 style="font-weight: bold;" class="ion-text-center">Departure Ticket</h5>
+      </div>
 
-    </div>
-  </ion-item>
-</ion-content>
+      <div class="card-content">
+        <ion-card class="card">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="ion-text-center">
+                <ion-img class="size-img" src="{{reservation.departureFlight.aeroline_img}}"></ion-img>
+              </ion-col>
+              <ion-col size="9">
+                <ion-card-title class="medium-text ion-text-center">{{reservation.departureFlight.departure_city}} <ion-icon
+                    name="arrow-forward-outline"></ion-icon> {{reservation.departureFlight.destination_city}}</ion-card-title>
+                    <h5 class="small-text ion-text-center">{{ reservation.departureFlight.departure_date | date:"yyyy-MM-dd hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ reservation.departureFlight.destination_date | date:"yyyy-MM-dd hh:mm" }}</h5>
+    
+                <ion-row>
+                  <ion-col size="1">
+                  </ion-col>
+                  <ion-col size="6">
+                    <p style="color:#98a1fb;">Adults</p>
+                    <p style="color:white;font-weight: bold;">${{reservation.departureFlight.adult_price}}</p>
+                    <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.departureFlight.adult_available}}</p>
+                  </ion-col>
+                  <ion-col size="5">
+                    <p style="color:#98a1fb;">Children</p>
+                    <p style="color:white;font-weight: bold;">${{reservation.departureFlight.child_price}}</p>
+                    <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.departureFlight.child_available}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+        <div *ngIf="reservation.returnFlight.flight_id">
+          <h5 style="font-weight: bold;" class="ion-text-center">Return Ticket</h5>
+    
+          <ion-card class="card">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="ion-text-center">
+                  <ion-img class="size-img" src="{{reservation.returnFlight.aeroline_img}}"></ion-img>
+                </ion-col>
+                <ion-col size="9">
+                  <ion-card-title class="medium-text ion-text-center">{{reservation.returnFlight.departure_city}} <ion-icon
+                      name="arrow-forward-outline"></ion-icon> {{reservation.returnFlight.destination_city}}</ion-card-title>
+                      <h5 class="small-text ion-text-center">{{ reservation.returnFlight.departure_date | date:"yyyy-MM-dd hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ reservation.returnFlight.destination_date | date:"yyyy-MM-dd hh:mm" }}</h5>
+    
+                  <ion-row>
+                    <ion-col size="1">
+                    </ion-col>
+                    <ion-col size="6">
+                      <p style="color:#98a1fb;">Adults</p>
+                      <p style="color:white;font-weight: bold;">${{reservation.returnFlight.adult_price}}</p>
+                      <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.returnFlight.adult_available}}</p>
+                    </ion-col>
+                    <ion-col size="5">
+                      <p style="color:#98a1fb;">Children</p>
+                      <p style="color:white;font-weight: bold;">${{reservation.returnFlight.child_price}}</p>
+                      <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{reservation.returnFlight.child_available}}</p>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </div>
+      </div>
+
+    </ion-item>
+  </ion-content>
+</div>
 
 <ion-modal trigger="notifications-modal-m" #notificationsModal class="notifications-modal">
   <ng-template>

@@ -2,12 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 760px;
 }
 
 .center-button {
     display: block;
     margin: 2rem auto;
-    width: 70%;
+    max-width: 300px;
 }
 
 .small-text {
@@ -23,6 +24,13 @@
 }
 
 .notifications-modal{
-    padding-top: 15%;
-    padding-bottom: 100%;
+    padding: 15% 5% 5% 5%;
+}
+
+.center-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    text-align: center;
 }

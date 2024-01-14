@@ -7,122 +7,124 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-text-center">
-  <h3 style="font-weight: bold;" class="ion-text-left">Departure Ticket</h3>
-  <ion-card class="card">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="3" class="ion-text-center">
-          <ion-img class="size-img" src="{{departureFlight.aeroline_img}}"></ion-img>          
-        </ion-col>
-        <ion-col size="9">
-          <ion-card-title class="medium-text ion-text-center">{{departureFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{departureFlight.destination_city}}</ion-card-title>
-          <h5 class="small-text ion-text-center">{{ departureFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ departureFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
-        
-          <ion-row>
-            <ion-col size="1">
-            </ion-col>
-            <ion-col size="6">
-              <p style="color:#98a1fb;">Adults</p>
-              <p style="color:white;font-weight: bold;">${{departureFlight.adult_price}}</p>
-              <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{departureFlight.adult_available}}</p>
-            </ion-col>
-            <ion-col size="5">
-              <p style="color:#98a1fb;">Children</p>
-              <p style="color:white;font-weight: bold;">${{departureFlight.child_price}}</p>
-              <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{departureFlight.child_available}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
-  <div *ngIf="round">
-    <h3 style="font-weight: bold;" class="ion-text-left">Return Ticket</h3>
-    <ion-select [(ngModel)]="selectedFlight">
-      <ion-select-option *ngFor="let flight of returnFlights" [value]="flight">
-        {{ flight.aeroline_name }}
-      </ion-select-option>
-    </ion-select>
-  
-    <ion-card *ngIf="selectedFlight" class="card">
+<div class="main-content">
+  <ion-content [fullscreen]="true" class="ion-text-center">
+    <h3 style="font-weight: bold;" class="ion-text-left">Departure Ticket</h3>
+    <ion-card class="card">
       <ion-grid>
         <ion-row>
           <ion-col size="3" class="ion-text-center">
-            <ion-img class="size-img" src="{{selectedFlight.aeroline_img}}"></ion-img>          
+            <ion-img class="size-img" src="{{departureFlight.aeroline_img}}"></ion-img>          
           </ion-col>
           <ion-col size="9">
-            <ion-card-title class="medium-text ion-text-center">{{selectedFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{selectedFlight.destination_city}}</ion-card-title>
-            <h5 class="small-text ion-text-center">{{ selectedFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ selectedFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
+            <ion-card-title class="medium-text ion-text-center">{{departureFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{departureFlight.destination_city}}</ion-card-title>
+            <h5 class="small-text ion-text-center">{{ departureFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ departureFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
           
             <ion-row>
               <ion-col size="1">
               </ion-col>
               <ion-col size="6">
                 <p style="color:#98a1fb;">Adults</p>
-                <p style="color:white;font-weight: bold;">${{selectedFlight.adult_price}}</p>
-                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{selectedFlight.adult_available}}</p>
+                <p style="color:white;font-weight: bold;">${{departureFlight.adult_price}}</p>
+                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{departureFlight.adult_available}}</p>
               </ion-col>
               <ion-col size="5">
                 <p style="color:#98a1fb;">Children</p>
-                <p style="color:white;font-weight: bold;">${{selectedFlight.child_price}}</p>
-                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{selectedFlight.child_available}}</p>
+                <p style="color:white;font-weight: bold;">${{departureFlight.child_price}}</p>
+                <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{departureFlight.child_available}}</p>
               </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card>
-
-  </div>
-
-
-  <h3 style="font-weight: bold;" class="ion-text-left">Passengers</h3>
-
-  <ion-item>
-    <div class="counter-container">
-      <ion-label style="font-size: 15px;">
-        <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
-        Adults
-      </ion-label>
-      <div class="number-input">
-        <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input [max]="getMaxAdultSeats()" type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
-      </div>
+  
+    <div *ngIf="round">
+      <h3 style="font-weight: bold;" class="ion-text-left">Return Ticket</h3>
+      <ion-select [(ngModel)]="selectedFlight">
+        <ion-select-option *ngFor="let flight of returnFlights" [value]="flight">
+          {{ flight.aeroline_name }}
+        </ion-select-option>
+      </ion-select>
+    
+      <ion-card *ngIf="selectedFlight" class="card">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" class="ion-text-center">
+              <ion-img class="size-img" src="{{selectedFlight.aeroline_img}}"></ion-img>          
+            </ion-col>
+            <ion-col size="9">
+              <ion-card-title class="medium-text ion-text-center">{{selectedFlight.departure_city}} <ion-icon name="arrow-forward-outline"></ion-icon> {{selectedFlight.destination_city}}</ion-card-title>
+              <h5 class="small-text ion-text-center">{{ selectedFlight.departure_date | date:"yyyy-MM-dd '/' hh:mm" }} <ion-icon name="remove-outline"></ion-icon> {{ selectedFlight.destination_date | date:"yyyy-MM-dd '/' hh:mm" }}</h5>
+            
+              <ion-row>
+                <ion-col size="1">
+                </ion-col>
+                <ion-col size="6">
+                  <p style="color:#98a1fb;">Adults</p>
+                  <p style="color:white;font-weight: bold;">${{selectedFlight.adult_price}}</p>
+                  <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{selectedFlight.adult_available}}</p>
+                </ion-col>
+                <ion-col size="5">
+                  <p style="color:#98a1fb;">Children</p>
+                  <p style="color:white;font-weight: bold;">${{selectedFlight.child_price}}</p>
+                  <p class="small-text"><span style="color:#98a1fb;">Seats:</span> {{selectedFlight.child_available}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+  
     </div>
-  </ion-item>
-
-  <ion-item>
-    <div class="counter-container">
-      <ion-label style="font-size: 15px;">
-        <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
-        Children
-      </ion-label>
-      <div class="number-input">
-        <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input [max]="getMaxChildSeats()" type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+  
+  
+    <h3 style="font-weight: bold;" class="ion-text-left">Passengers</h3>
+  
+    <ion-item>
+      <div class="counter-container">
+        <ion-label style="font-size: 15px;">
+          <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
+          Adults
+        </ion-label>
+        <div class="number-input">
+          <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input [max]="getMaxAdultSeats()" type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        </div>
       </div>
-    </div>
-  </ion-item>
-
-  <ion-item *ngIf="adultsNumber == 0 && childrenNumber == 0">
-    <ion-label color="danger" style="font-size: 14px;">
-      * Select at least a passenger
-    </ion-label>
-  </ion-item>
-
-  <ion-item *ngIf="adultsNumber > getMaxAdultSeats() || childrenNumber > getMaxChildSeats()">
-    <ion-label color="danger" style="font-size: 14px;">
-      * Select a correct seats range
-    </ion-label>
-  </ion-item>
-
-  <ion-button class="btn-checkout" shape="round" color="tertiary" 
-  [disabled]="(adultsNumber == 0 && childrenNumber == 0) || adultsNumber > getMaxAdultSeats() || childrenNumber > getMaxChildSeats()" (click)="goToCheckout()">
-    Checkout
-  </ion-button>
-
-</ion-content>
+    </ion-item>
+  
+    <ion-item>
+      <div class="counter-container">
+        <ion-label style="font-size: 15px;">
+          <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
+          Children
+        </ion-label>
+        <div class="number-input">
+          <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input [max]="getMaxChildSeats()" type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        </div>
+      </div>
+    </ion-item>
+  
+    <ion-item *ngIf="adultsNumber == 0 && childrenNumber == 0">
+      <ion-label color="danger" style="font-size: 14px;">
+        * Select at least a passenger
+      </ion-label>
+    </ion-item>
+  
+    <ion-item *ngIf="adultsNumber > getMaxAdultSeats() || childrenNumber > getMaxChildSeats()">
+      <ion-label color="danger" style="font-size: 14px;">
+        * Select a correct seats range
+      </ion-label>
+    </ion-item>
+  
+    <ion-button class="btn-checkout" shape="round" color="tertiary" 
+    [disabled]="(adultsNumber == 0 && childrenNumber == 0) || adultsNumber > getMaxAdultSeats() || childrenNumber > getMaxChildSeats()" (click)="goToCheckout()">
+      Checkout
+    </ion-button>
+  
+  </ion-content>
+</div>

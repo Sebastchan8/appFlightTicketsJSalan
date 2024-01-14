@@ -8,112 +8,114 @@
     <ion-title>{{flight.flight_id ? 'Updating the flight':'Adding a flight'}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<form [formGroup]="flightForm">
-  <ion-item>
-    <ion-label position="floating" style="color: #98a1fb;">
-      <ion-icon name="airplane-outline"></ion-icon>
-      Aeroline
-    </ion-label>
-    <ion-select [(ngModel)]="selectedAeroline" [ngModelOptions]="{standalone: true}">
-      <ion-select-option *ngFor="let aeroline of aerolines" [value]="aeroline.aeroline_name">
-        {{ aeroline.aeroline_name }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item id="open-departure-modal">
-    <ion-label position="floating" style="color: #98a1fb;">
-      <ion-icon src="../../../assets/icon/departure.svg"></ion-icon>
-      Departure
-    </ion-label>
-    <ion-input formControlName="departure_city"></ion-input>
-  </ion-item>
-
-  <ion-item id="open-destination-modal" (click)="setInitialResults()">
-    <ion-label position="floating" style="color: #98a1fb;">
-      <ion-icon src="../../../assets/icon/destination.svg"></ion-icon>
-      Destination
-    </ion-label>
-    <ion-input formControlName="destination_city"></ion-input>
-  </ion-item>
-
-  <ion-item id="date-departure-modal">
-    <ion-label position="floating" class="label-title">
-      <ion-icon src="../../../assets/icon/departure-date.svg"></ion-icon>
-      Departure Date
-    </ion-label>
-    <h3>
-      {{ departureDateString }}
-    </h3>
-  </ion-item>
-
-  <ion-item id="date-return-modal">
-    <ion-label position="floating" class="label-title">
-      <ion-icon src="../../../assets/icon/return-date.svg"></ion-icon>
-      Destination Date
-    </ion-label>
-    <h3>{{returnDateString}}</h3>
-  </ion-item>
-
-  <ion-item style="margin-top: 4%;">
-    <div class="counter-container">
-      <ion-label style="font-size: 18px;">
-        <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
-        Adults
+<ion-content>
+  <form [formGroup]="flightForm">
+    <ion-item>
+      <ion-label position="floating" style="color: #98a1fb;">
+        <ion-icon name="airplane-outline"></ion-icon>
+        Aeroline
       </ion-label>
-      <div class="number-input" style="font-size: 16px;">
-        <div>Seats</div>
-        <div>$Price</div>
-      </div>
-      <div class="number-input">
-        <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
-        
-        <ion-button style="margin-left: 2%;" (click)="decAdultPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input type="number" [(ngModel)]="adultsPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addAdultPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
-      </div>
-    </div>
-  </ion-item>
-
-  <ion-item style="margin-top: 4%;">
-    <div class="counter-container">
-      <ion-label style="font-size: 18px;">
-        <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
-        Children
+      <ion-select [(ngModel)]="selectedAeroline" [ngModelOptions]="{standalone: true}">
+        <ion-select-option *ngFor="let aeroline of aerolines" [value]="aeroline.aeroline_name">
+          {{ aeroline.aeroline_name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item id="open-departure-modal">
+      <ion-label position="floating" style="color: #98a1fb;">
+        <ion-icon src="../../../assets/icon/departure.svg"></ion-icon>
+        Departure
       </ion-label>
-      <div class="number-input" style="font-size: 16px;">
-        <div>Seats</div>
-        <div>$Price</div>
+      <ion-input formControlName="departure_city"></ion-input>
+    </ion-item>
+  
+    <ion-item id="open-destination-modal" (click)="setInitialResults()">
+      <ion-label position="floating" style="color: #98a1fb;">
+        <ion-icon src="../../../assets/icon/destination.svg"></ion-icon>
+        Destination
+      </ion-label>
+      <ion-input formControlName="destination_city"></ion-input>
+    </ion-item>
+  
+    <ion-item id="date-departure-modal">
+      <ion-label position="floating" class="label-title">
+        <ion-icon src="../../../assets/icon/departure-date.svg"></ion-icon>
+        Departure Date
+      </ion-label>
+      <h3>
+        {{ departureDateString }}
+      </h3>
+    </ion-item>
+  
+    <ion-item id="date-return-modal">
+      <ion-label position="floating" class="label-title">
+        <ion-icon src="../../../assets/icon/return-date.svg"></ion-icon>
+        Destination Date
+      </ion-label>
+      <h3>{{returnDateString}}</h3>
+    </ion-item>
+  
+    <ion-item style="margin-top: 4%;">
+      <div class="counter-container">
+        <ion-label style="font-size: 18px;">
+          <ion-icon src="../../../assets/icon/adult.svg"></ion-icon>
+          Adults
+        </ion-label>
+        <div class="number-input" style="font-size: 16px;">
+          <div>Seats</div>
+          <div>$Price</div>
+        </div>
+        <div class="number-input">
+          <ion-button (click)="decAdult()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input type="number" [(ngModel)]="adultsNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addAdult()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+          
+          <ion-button style="margin-left: 2%;" (click)="decAdultPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input type="number" [(ngModel)]="adultsPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addAdultPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        </div>
       </div>
-      <div class="number-input">
-        <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
-        
-        <ion-button style="margin-left: 2%;" (click)="decChildPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
-        <ion-input type="number" [(ngModel)]="childrenPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
-        <ion-button (click)="addChildPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+    </ion-item>
+  
+    <ion-item style="margin-top: 4%;">
+      <div class="counter-container">
+        <ion-label style="font-size: 18px;">
+          <ion-icon src="../../../assets/icon/child.svg"></ion-icon>
+          Children
+        </ion-label>
+        <div class="number-input" style="font-size: 16px;">
+          <div>Seats</div>
+          <div>$Price</div>
+        </div>
+        <div class="number-input">
+          <ion-button (click)="decChild()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input type="number" [(ngModel)]="childrenNumber" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addChild()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+          
+          <ion-button style="margin-left: 2%;" (click)="decChildPrice()" class="decrement-button" color="tertiary"><ion-icon name="remove-outline"></ion-icon></ion-button>
+          <ion-input type="number" [(ngModel)]="childrenPrice" class="custom-input" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-button (click)="addChildPrice()" class="increment-button" color="tertiary"><ion-icon name="add-outline"></ion-icon></ion-button>
+        </div>
       </div>
-    </div>
-  </ion-item>
-</form>
+    </ion-item>
+  </form>
+  
+  <ion-label color="danger" *ngIf="departureDateValue >= returnDateValue" style="font-size: 14px;">
+    * Destination Date should be greater than Departure Date
+  </ion-label>
+  
+  <ion-label color="danger" *ngIf="adultsNumber <= 0 && childrenNumber <= 0" style="font-size: 14px;">
+    * Select a valid seats range
+  </ion-label>
+  
+  <ion-button expand="block" shape="round" color="tertiary" 
+  [disabled]="flightForm.invalid" 
+  (click)="onSubmit()">
+    Save
+  </ion-button>
 
-<ion-label color="danger" *ngIf="departureDateValue >= returnDateValue" style="font-size: 14px;">
-  * Destination Date should be greater than Departure Date
-</ion-label>
-
-<ion-label color="danger" *ngIf="adultsNumber <= 0 && childrenNumber <= 0" style="font-size: 14px;">
-  * Select a valid seats range
-</ion-label>
-
-<ion-button expand="block" shape="round" color="tertiary" 
-[disabled]="flightForm.invalid" 
-(click)="onSubmit()">
-  Save
-</ion-button>
+</ion-content>
 
 
 

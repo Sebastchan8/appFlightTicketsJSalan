@@ -1,8 +1,21 @@
 .notifications-modal{
-    padding-top: 15%;
-    padding-bottom: 100%;
+    padding: 15% 5% 5% 5%;
 }
 
 ion-label{
     color: #98a1fb !important;
+}
+
+div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+ion-content {
+    max-width: 500px;
 }

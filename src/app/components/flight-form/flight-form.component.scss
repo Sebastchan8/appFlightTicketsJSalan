@@ -1,5 +1,5 @@
 .date-modal {
-    padding-top: 30%;
+    padding-top: 15%;
 }
 
 .label-title {
@@ -30,4 +30,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+ion-content{
+    max-width: 600px;
 }
