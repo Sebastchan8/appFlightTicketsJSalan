@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,12 @@ export class FlightsService {
 
   getCities(){
     return this.http.get(this.API + 'cities');
+  }
+
+  getRecommendedCities(userId: number) {
+    return this.http.get(this.API +'recommended-cities/' + userId).pipe(
+      map((response: any) => response.cities)
+    );
   }
 
   addCity(city:any){
